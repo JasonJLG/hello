@@ -1,0 +1,53 @@
+C51 COMPILER V9.54   DELAY                                                                 03/06/2022 22:41:44 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE DELAY
+OBJECT MODULE PLACED IN .\Objects\Delay.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE Delay.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\Del
+                    -ay.lst) OBJECT(.\Objects\Delay.obj)
+
+line level    source
+
+   1          /*
+   2          void Delay(unsigned int xms)            //@11.0592MHz（自测），单位为毫秒
+   3          {
+   4                  unsigned int i,j;
+   5                  for(i=xms;i>0;i--)
+   6                          for(j=114;j>0;j--);
+   7          }
+   8          */
+   9          
+  10          #include <intrins.h>
+  11          
+  12          void Delay(unsigned int xms)//@11.0592MHz,xms的类型最好用uint,因为uint范围0~65535，而char范�
+             -�0~255.
+  13          {                                                       
+  14   1              unsigned char i, j;
+  15   1              while(xms)
+  16   1              {
+  17   2                      _nop_();
+  18   2                      i = 2;
+  19   2                      j = 199;
+  20   2                      do
+  21   2                      {
+  22   3                              while (--j);
+  23   3                      } while (--i);  
+  24   2                      xms--;
+  25   2              }
+  26   1              
+  27   1      }
+  28          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     21    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
